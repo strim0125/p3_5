@@ -1,3 +1,6 @@
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.Semaphore;
+
 public class Car implements Runnable {
         private static int CARS_COUNT;
         private Race race;
@@ -10,7 +13,8 @@ public class Car implements Runnable {
         public int getSpeed() {
             return speed;
         }
-        public Car(Race race, int speed) {
+
+        public Car(Race race, int speed, CyclicBarrier barrier) {
             this.race = race;
             this.speed = speed;
             CARS_COUNT++;
@@ -20,6 +24,7 @@ public class Car implements Runnable {
         public void run() {
             try {
                 System.out.println(this.name + " готовится");
+                Semaphore sem = new Semaphore(speed);
                 Thread.sleep(500 + (int)(Math.random() * 800));
                 System.out.println(this.name + " готов");
             } catch (Exception e) {
