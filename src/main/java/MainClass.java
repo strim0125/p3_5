@@ -12,6 +12,7 @@ public class MainClass {
         Car[] cars = new Car[CARS_COUNT];
         for (int i = 0; i < cars.length; i++) {
             cars[i] = new Car(race, 20 + (int) (Math.random() * 10), barrier);
+            new Thread(cars[i]).start();
         }
 
         for (int i = 0; i < cars.length; i++){
